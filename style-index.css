@@ -1,0 +1,66 @@
+/*
+  Styles der Startseite (bzw. der Seite im Hintergrund
+*/
+
+
+/* webcam
+=================================================== */
+
+.webcam-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.webcam {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.start-webcam {
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    background: #121212;
+    color: white;
+    border: none;
+    cursor: pointer;
+    
+    
+}
+
+.start-webcam:hover {
+    background-color: #97FB57;
+}
+
+.webcam-error {
+    color: #ff6b6b;
+    text-align: center;
+    padding: 20px;
+    display: none;
+}
+
+
+/* iframe / eingebettete Seiten
+=================================================== */
+
+iframe {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100dvh;
+    border: none;
+    background-color: transparent;
+    display: none;
+}
+
+
+
