@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FAILURE</title>
+    
+    <link rel="stylesheet" href="https://use.typekit.net/ury0vew.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: "acumin-pro-extra-condensed", "Helvetica Inserat", "Arial Narrow", sans-serif;
+        }
+
+        .message {
+            font-size: 8rem;
+            color: #ff0303; 
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+        }
+
+       .subtext {
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #ff0303; 
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        button.ok-button {
+            all: unset;
+            display: inline-block;
+            padding: 20px 100px; 
+            font-size: 3rem; 
+            font-weight: 800;
+            background-color: #97FB57;
+            color: #121212;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            transition: all 0.1s ease;
+            border: 4px solid #97FB57;
+        }
+
+        button.ok-button:hover {
+            background-color: transparent;
+            color: #97FB57;
+            transform: scale(1.05);
+        }
+
+        button.ok-button:active {
+            transform: scale(0.95);
+            background-color: #ff0303;
+            border-color: #ff0303;
+        }
+    </style>
+</head>
+<body>
+
+    <p class="message">You're too late!</p>
+    <p class="subtext">Sleep is for losers</p>
+
+    <div class="button-container">
+        <button class="ok-button" onclick="goToNextPage()">OK</button>
+    </div>
+
+    <script>
+        function goToNextPage() {
+            // Leitet zur nächsten Seite weiter
+            window.location.href = "seite-4.html";
+        }
+    </script>
+
+</body>
+</html>

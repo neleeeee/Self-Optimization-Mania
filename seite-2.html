@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimierungswahn - Routine</title>
+    
+    <link rel="stylesheet" href="https://use.typekit.net/ury0vew.css">
+   <link rel="stylesheet" href="assets/css/reset.css">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: "acumin-pro-extra-condensed", "Helvetica Inserat", "Arial Narrow", sans-serif;
+            padding: 20px;
+        }
+
+        p.headline-text {
+            font-size: 6rem;
+            color: #121212;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+            z-index: 10;
+        }
+
+        .image-container img {
+            max-height: 200px;
+            filter: grayscale(100%);
+        }
+
+        .checkbox-list {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #121212;
+        }
+
+        input[type="checkbox"] {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            accent-color: #97FB57;
+        }
+
+        /* TIMER BAR */
+        .timer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #121212;
+            z-index: 1000;
+        }
+
+        .timer-progress {
+            height: 100%;
+            width: 100%;
+            background-color: #97FB57;
+            animation: emptyTimer 15s linear forwards;
+        }
+
+        @keyframes emptyTimer {
+            0% { width: 100%; background-color: #97FB57; }
+            80% { background-color: #97FB57; }
+            100% { width: 0%; background-color: #ff0303; }
+        }
+
+        /* iOS NOTIFICATIONS */
+        #notification-area {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .ios-notification {
+            width: 90%;
+            max-width: 380px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            pointer-events: auto;
+            transform: translateY(-150%);
+            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .ios-notification.show {
+            transform: translateY(0);
+        }
+
+        .notif-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .notif-app {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .app-icon {
+            width: 12px;
+            height: 12px;
+            background: #97FB57;
+            border-radius: 3px;
+        }
+
+        .notif-body {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        .notif-btn {
+            background: rgba(0,0,0,0.05);
+            border: none;
+            padding: 8px;
+            border-radius: 10px;
+            color: #007AFF;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <p class="headline-text">Complete morning routine</p>
+
+    <div class="main-container">
+        <div class="image-container">
+            <img src="assets/media/Wecker.png" alt="Wecker">
+        </div>
+
+        <div class="checkbox-list">
+            <script>
+                // Erstellt 32 Checkboxen
+                for(let i=0; i<32; i++) {
+                    document.write('<input type="checkbox">');
+                }
+            </script>
+        </div>
+    </div>
+
+    <div class="timer-bar">
+        <div class="timer-progress"></div>
+    </div>
+
+    <div id="notification-area"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const duration = 15000; 
+            const nextPage = "seite-3.html";
+            const notifArea = document.getElementById('notification-area');
+
+            // --- iOS NOTIFICATION LOGIK ---
+            const messages = [
+                "REMINDER: Have you finished journaling?",
+                "GOAL: Be 10% faster than yesterday.",
+                "HEALTH: Drink your lemon water.",
+            ];
+            
+            // Kopie des Arrays, um Nachrichten zu entfernen
+            let availableMessages = [...messages];
+            let notifCount = 0;
+            const maxNotifs = 3; 
+
+            function createNotification() {
+                if (notifCount >= maxNotifs || availableMessages.length === 0) return;
+
+                // Zufälligen Index wählen und Nachricht aus dem Pool entfernen (splice)
+                const randomIndex = Math.floor(Math.random() * availableMessages.length);
+                const msg = availableMessages.splice(randomIndex, 1)[0];
+
+                const notif = document.createElement('div');
+                notif.className = 'ios-notification';
+                notif.innerHTML = `
+                    <div class="notif-header">
+                        <div class="notif-app"><div class="app-icon"></div>REMINDERS</div>
+                        <div style="font-size:0.7rem; color:#999;">jetzt</div>
+                    </div>
+                    <div class="notif-body">${msg}</div>
+                    <button class="notif-btn" onclick="removeNotif(this)">OK</button>
+                `;
+                notifArea.appendChild(notif);
+                notifCount++;
+                setTimeout(() => notif.classList.add('show'), 50);
+            }
+
+            window.removeNotif = function(btn) {
+                const n = btn.parentElement;
+                n.classList.remove('show');
+                setTimeout(() => n.remove(), 500);
+            };
+
+            function scheduleNext() {
+                if (notifCount < maxNotifs) {
+                    // Timing: Alle 3-4 Sekunden ein neuer Reminder
+                    const time = Math.random() * (4000 - 3000) + 3000;
+                    setTimeout(() => {
+                        createNotification();
+                        scheduleNext();
+                    }, time);
+                }
+            }
+
+            // Erster Reminder nach 1,5 Sekunden
+            setTimeout(() => {
+                createNotification();
+                scheduleNext();
+            }, 1500);
+
+            // --- SEITEN-LOGIK (TIMEOUT) ---
+            setTimeout(() => {
+                window.location.href = nextPage;
+            }, duration);
+
+            // --- CHECKBOX-LOGIK ---
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const allChecked = Array.from(checkboxes).every(c => c.checked);
+                    if (allChecked) {
+                        window.location.href = nextPage;
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

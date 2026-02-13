@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Selbstoptimierungswahn - Definition</title>
+
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style-index.css">
+
+    <style>
+        body {
+            color: #d1d1d1;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            padding: 40px;
+            /* Zeigt an, dass man klicken kann */
+            cursor: pointer; 
+        }
+
+        #text-container {
+            max-width: 800px;
+            white-space: pre-wrap;
+            text-align: left;
+            /* Verhindert, dass Markieren den Klick-Fluss stört */
+            user-select: none; 
+        }
+
+        #cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: #00ff41;
+            margin-left: 5px;
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body onclick="goToIndex()" style="margin:0; padding:0; overflow:hidden; display:flex; justify-content:center; align-items:center; height:100vh; width:100vw; background: #0d0d0d;">
+
+    <div id="text-container">
+        <span id="typed-text"></span><span id="cursor"></span>
+    </div>
+
+    <script>
+        const text = `Self-Optimization Mania 
+
+Taking care of your health, exercising, and pursuing goals are positive things. It becomes problematic when this turns into a compulsive urge to constantly improve yourself. You always want to be more productive, fitter, and more successful. What begins as healthy self-development can become an obligation.
+
+Driven by social media, performance pressure, and societal ideals, many people develop the feeling of never being good enough. Unrealistic routines and seemingly perfect Lifestyles put pressure on many – particularly teenagers. Within their own bubbles, they constantly compare themselves and get caught in a cycle of performance pressure, perfectionism, and dissatisfaction.
+
+Instead of feeling empowered, they experience stress, overwhelm, and self-doubt. A healthy mindset means allowing growth, but also accepting limits, mistakes, and rest as part of being human. Taking care of yourself is good – as long as it doesn’t make you unhappy.`;
+
+        const displayElement = document.getElementById('typed-text');
+        let index = 0;
+
+        function type() {
+            if (index < text.length) {
+                displayElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, 30); 
+            }
+        }
+
+        // Die Funktion für die Weiterleitung
+        function goToIndex() {
+            window.location.href = 'index.html';
+        }
+
+        window.onload = type;
+    </script>
+</body>
+</html>
