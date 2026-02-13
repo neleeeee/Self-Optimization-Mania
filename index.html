@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Titel der Seite -->
+        <title>Seitentitel</title>
+        
+        <!-- verweis auf die reset.css - entfernt alle default styles des browsers -->
+        <!-- kann auch gelöscht werden -->
+        <link rel="stylesheet" href="./assets/css/reset.css">
+
+        <!-- verweis auf unser css -->
+        <link rel="stylesheet" href="./assets/css/style-index.css">
+    </head>
+    
+    <body>
+
+        <!-- Webcam Container -->
+        <div class="webcam-container">
+            <video class="webcam" autoplay playsinline muted></video>
+            <button class="start-webcam">Click to upgrade your life</button>
+            <p class="webcam-error"></p>
+        </div>
+
+
+        <!-- Hier werden die einzelnen Seiten angezeigt -->
+        <iframe src="seite-1.html"></iframe>
+
+
+        <script src="./assets/js/script-index.js"></script>
+
+    </body>
+</html>
